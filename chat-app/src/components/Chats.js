@@ -1,6 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { ChatEngine } from "react-chat-engine";
+import { Col, Row } from "react-grid-system";
+import {
+  ChatEngineWrapper,
+  Socket,
+  ChatList,
+  ChatFeed,
+  ChatSettings,
+} from "react-chat-engine";
 import { auth } from "../firebase";
 
 import { useAuth } from "../contexts/AuthContext";
@@ -22,12 +29,26 @@ const Chats = () => {
           Logout
         </div>
       </div>
-      <ChatEngine
-        height="calc(100vh - 66px)"
-        projectID={process.env.REACT_APP_PROJECT_ID}
-        userName={process.env.REACT_APP_USERNAME}
-        userSecret={process.env.REACT_APP_USER_SECRET}
-      />
+      <ChatEngineWrapper height="calc(100vh - 66px)">
+        <Socket
+          projectID={process.env.REACT_APP_PROJECT_ID}
+          userName={process.env.REACT_APP_USERNAME}
+          userSecret={process.env.REACT_APP_USER_SECRET}
+        />
+        <Row>
+          <Col xs={0} sm={3}>
+            <ChatList />
+          </Col>
+
+          <Col xs={12} sm={6}>
+            <ChatFeed />
+          </Col>
+
+          <Col xs={0} sm={3}>
+            <ChatSettings />
+          </Col>
+        </Row>
+      </ChatEngineWrapper>
     </div>
   );
 };

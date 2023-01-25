@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
+// import io from "socket.io-client";
+// let socket = io.connect("wss://localhost:3000");
 
 const AuthContext = React.createContext();
 
@@ -13,6 +15,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
+      // socket.on();
       setUser(user);
       setLoading(false);
       if (user) navigate("/chats");
